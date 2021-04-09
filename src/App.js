@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import socketIOClient from 'socket.io-client';
+import Video from './Video';
+const ENDPOINT = "http://localhost:8080";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  // componentDidMount() {
+  //   const socket = socketIOClient(ENDPOINT);
+  //   socket.on('join-room', (socket) => {
+  //     console.log("Joined room");
+  //   })
+  // }
+
+  render() {
+    return (
+      <>
+        <h1>Hello World</h1>
+        <Video />
+      </>
+    )
+  }
 }
 
 export default App;
