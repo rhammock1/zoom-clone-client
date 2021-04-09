@@ -1,11 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import './Video.css';
 
-// const myVideo = document.getElementsByTagName('video');
-// const videoGrid = document.getElementById('video-grid');
-
-// myVideo.muted = true; // set true for testing purposes
-
-// let videoStream;
 
 const Video = () => {
     const videoRef = useRef(null);
@@ -22,13 +17,14 @@ const Video = () => {
             let video = videoRef.current;
             video.srcObject = stream;
             video.play();
+            video.muted = true; //muted for testing
         }).catch((error) => {
             console.error(error);
         });
     };
 
     return (
-        <div>
+        <div id="video-flex">
             <video ref={videoRef} />
         </div>
     );
