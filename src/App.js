@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import socketIOClient from 'socket.io-client';
 import Video from './Video/Video';
+import { Route } from 'react-router';
+import Home from './Home/Home';
 const ENDPOINT = "http://localhost:8080";
 
 class App extends React.Component {
@@ -24,7 +26,7 @@ class App extends React.Component {
       <>
         <h1>Hello Zoom Clone</h1>
         <Video />
-        
+        <Route exact path='/' component={Home} />
       </>
     )
   }
