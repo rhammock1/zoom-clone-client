@@ -7,9 +7,15 @@ const ENDPOINT = "http://localhost:8080";
 class App extends React.Component {
 
   componentDidMount() {
+    let roomId;
     const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
     socket.emit('join-room', (socket) => {
       console.log("Joined room");
+    })
+    socket.on('uuid', (id) => {
+      roomId = id;
+      console.log(roomId);
+      
     })
   }
 
@@ -18,6 +24,7 @@ class App extends React.Component {
       <>
         <h1>Hello Zoom Clone</h1>
         <Video />
+        
       </>
     )
   }
