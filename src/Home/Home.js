@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import uuid from 'uuid';
 
 const handleNewRoom = () => {
     // Link to a new room with a unique id
@@ -14,7 +16,7 @@ const Home = () => {
     return (
       <div className='button-container'>
         <button onClick={handleJoinRoom} type="button">Join a room</button>
-        <button onClick={handleNewRoom} type="button">Start a room</button>
+        <Link to={`/${uuid()}`} onClick={handleNewRoom} type="button">Start a room</Link>
       </div>
     )
 }
