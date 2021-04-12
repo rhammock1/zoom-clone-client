@@ -3,7 +3,7 @@ import './Room.css';
 import { Link } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import Peer from 'peerjs';
-const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8081" : 'https://zoom-clone-peer.herokuapp.com'; // May have to change endpoint that io is listening on
+const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : 'https://floating-dawn-41188.herokuapp.com/'; // May have to change endpoint that io is listening on
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 let peer;
 let myStream;
