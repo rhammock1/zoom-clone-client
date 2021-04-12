@@ -53,7 +53,7 @@ class Room extends React.Component {
         peer = new Peer('', {
             path: '/peerjs',
             host: process.env.REACT_APP_PEER_HOST,
-            port: 8080,
+            port: process.env.REACT_APP_PEER_PORT,
         })
         peer.on('open', (id) => {
             console.log('peer connected');
