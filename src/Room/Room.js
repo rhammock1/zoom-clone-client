@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Video/Video.css';
+import './Room.css';
 import { Link } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import Peer from 'peerjs';
@@ -7,44 +7,6 @@ const ENDPOINT = "http://localhost:8081"; // Mayt have to change endpoint that i
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 let peer;
 let myStream;
-
-
-
-// const Video = () => {
-//     const videoRef = useRef(null);
-
-//     useEffect(() => {
-//       getVideo();
-//     }, [videoRef]);
-
-//     const getVideo = () => {
-//         navigator.mediaDevices.getUserMedia({
-//             video: true,
-//             audio: true,
-//         }).then((stream) => {
-//             let video = videoRef.current;
-            
-//             myStream = stream;
-            
-//         }).catch((error) => {
-//             console.error(error);
-//         });
-    
-//     const addVideoStream = function(video, stream) {
-//         const videoFlex = document.getElementById('video-flex');
-//         video.srcObject = stream;
-//         video.play();
-//         video.muted = true; //muted for testing
-//     }
-//     };
-
-//     return (
-//         <div id="video-flex">
-//             {/* <video ref={videoRef} /> */}
-//         </div>
-//     );
-
-// };
 
 class Room extends React.Component {
 
