@@ -6,9 +6,13 @@ import Peer from 'peerjs';
 const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : 'https://floating-dawn-41188.herokuapp.com/'; // May have to change endpoint that io is listening on
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 let peer;
-let myStream;
 
 class Room extends React.Component {
+
+    state = {
+        connected: 0,
+        users: [],
+    }
 
     componentDidMount() {
         const { roomId } = this.props.match.params;
@@ -20,6 +24,7 @@ class Room extends React.Component {
         peer.on('open', (id) => {
             console.log('peer connected');
             socket.emit('join-room', roomId, id);
+            // this.handleAnswerCall(myStream);
         })
 
         const myVideo = document.createElement('video');
@@ -27,25 +32,24 @@ class Room extends React.Component {
             video: true,
             audio: true,
         }).then((stream) => {
-            myStream = stream;
             this.handleAddVideoStream(myVideo, stream);
-
-            peer.on('call', (call) => {
-                call.answer(stream);
-                const video = document.createElement('video');
-                call.on('stream', (userVideoStream) => {
-                    this.handleAddVideoStream(video, userVideoStream);
-                })
-            })
+            this.handleAnswerCall(stream);
+            
         }).catch((error) => {
             console.error(error);
         });
         
-        // socket.emit('uuid', roomId);
     }
 
-    handleGetVideo = () => {
-
+    handleAnswerCall = (stream) => {
+        peer.on('call', (call) => {
+            call.answer(stream);
+            const video = document.createElement('video');
+            call.on('stream', (userVideoStream) => {
+                console.log('Inside Answer Call on stream')
+                this.handleAddVideoStream(video, userVideoStream);
+            })
+        })
     }
 
     handleAddVideoStream = (video, stream) => {
@@ -59,26 +63,31 @@ class Room extends React.Component {
     }
 
     handleNewUserJoin = () => {
+
         socket.on('user-connected', (userId) => {
             console.log('a new user has joined');
-            this.handleConnectNewUser(userId, myStream);
+
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true,
+            }).then((stream) => {
+
+                const call = peer.call(userId, stream);
+                const video = document.createElement('video');
+                call.on('stream', (userVideoStream) => {
+                    console.log('line 88 in call on stream',userVideoStream);
+                    this.handleAddVideoStream(video, userVideoStream);
+                })
+
+            }).catch((error) => {
+                console.error(error);
+            });
+            
         })
     }
-
-    handleConnectNewUser = (userId, stream) => {
-        console.log("this is a new user", userId);
-        const call = peer.call(userId, stream);
-        const video = document.createElement('video');
-        call.on('stream', (userVideoStream) => {
-            this.handleAddVideoStream(video, userVideoStream);
-        })
-        call.on('close', () => {
-            video.remove()
-        })
-    }
-
 
     render() {
+        const { connected } = this.state;
         this.handleNewUserJoin();
 
         return (
@@ -86,6 +95,7 @@ class Room extends React.Component {
                 <div id="video-flex">
                     
                 </div>
+                <p>There are {connected} number of peers connected</p>
                 <Link to='/'>Back to Home</Link>
             </>
         )
