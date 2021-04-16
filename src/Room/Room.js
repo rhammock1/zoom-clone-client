@@ -9,6 +9,10 @@ let peer;
 
 class Room extends React.Component {
 
+    state = {
+        message: '',
+    }
+
     componentDidMount() {
         const { roomId } = this.props.match.params;
         peer = new Peer('', {
@@ -81,6 +85,19 @@ class Room extends React.Component {
         })
     }
 
+    handleMessage = (event) => {
+        this.setState({ message: event.target.value })
+        // console.log(event.target.value)
+    }
+
+    handleSendMessage = (event) => {
+        const { message } = this.state;
+        if (event.which === 13 && message.length !== 0) {
+            console.log(message)
+            event.target.value = '';
+        }
+    }
+
     render() {
         this.handleNewUserJoin();
 
@@ -135,7 +152,7 @@ class Room extends React.Component {
                             </ul>
                         </div>
                         <div className='main_message_container'>
-                            <input id='chat_message' name='chat_message' type='text' placeholder='Type message here...' />
+                            <input onKeyDown={this.handleSendMessage} onChange={this.handleMessage} id='chat_message' name='chat_message' type='text' placeholder='Type message here...' />
                         </div>
                     </div>
                 </div>
