@@ -96,25 +96,25 @@ class Room extends React.Component {
                         <div className='main_controls'>
                             <div className='main_controls_block'>
                                 <div className='main_controls_button'>
-                                    <i class="fas fa-microphone"></i>
+                                    <i className="fas fa-microphone"></i>
                                     <span>Mute</span>                                    
                                 </div>
                                 <div className='main_controls_button'>
-                                    <i class="fas fa-video"></i>
+                                    <i className="fas fa-video"></i>
                                     <span>Stop Video</span>                                    
                                 </div>
                             </div>
                             <div className='main_controls_block'>
                                 <div className='main_controls_button'>
-                                    <i class="fas fa-shield-alt"></i>
+                                    <i className="fas fa-shield-alt"></i>
                                     <span>Security</span>                                    
                                 </div>
                                 <div className='main_controls_button'>
-                                    <i class="fas fa-user-friends"></i>
+                                    <i className="fas fa-user-friends"></i>
                                     <span>Participants</span>                                    
                                 </div>
                                 <div className='main_controls_button'>
-                                    <i class="fas fa-comment-alt"></i>
+                                    <i className="fas fa-comment-alt"></i>
                                     <span>Chat</span>                                    
                                 </div>
                             </div>
