@@ -30,6 +30,7 @@ video {
 }
 .main_controls {
     display: flex;
+    justify-content: space-between;
     background-color: #1c1e20;
     color: #D2D2D2;
     padding: 5px;
@@ -37,7 +38,25 @@ video {
 .main_controls_button {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 10px;
+    min-width: 80px;
+    cursor: pointer;
+}
+.main_controls_button:hover {
+    background-color: #343434;
+    border-radius: 5px;
 }
 .main_controls_block {
     display: flex;
+}
+.main_controls_button i {
+    font-size: 24px;
+}
+.leave_meeting {
+    color: #eb534b;
+}
+a {
+    text-decoration: none;
 }

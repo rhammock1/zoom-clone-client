@@ -112,8 +112,26 @@ class Room extends React.Component {
                                     <span>Stop Video</span>                                    
                                 </div>
                             </div>
+                            <div className='main_controls_block'>
+                                <div className='main_controls_button'>
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Security</span>                                    
+                                </div>
+                                <div className='main_controls_button'>
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Participants</span>                                    
+                                </div>
+                                <div className='main_controls_button'>
+                                    <i class="fas fa-comment-alt"></i>
+                                    <span>Chat</span>                                    
+                                </div>
+                            </div>
+                            <div className='main_controls_block'>
+                                <div className='main_controls_button'>
+                                    <Link to='/'><span className='leave_meeting'>Leave Meeting</span></Link>                                  
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                     <div className='main_right'>
                         <div className='main_header'>
