@@ -137,7 +137,14 @@ class Room extends React.Component {
                         <div className='main_header'>
                             <h3>Chat</h3>
                         </div>
+                        <div className='main_chat_window'>
+                            <ul className='messages'>
 
+                            </ul>
+                        </div>
+                        <div className='main_message_container'>
+                            <input id='chat_message' name='chat_message' type='text' placeholder='Type message here...' />
+                        </div>
                     </div>
                 </div>
                 <p>There are {connected} number of peers connected</p>
