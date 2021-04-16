@@ -15,7 +15,16 @@ video {
 }
 .main_left {
     flex: 0.8;
+    display: flex;
+    flex-direction: column;
 }
 .main_right {
     flex: 0.2;
+}
+.main_videos {
+    flex-grow: 1;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
