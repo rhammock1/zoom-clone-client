@@ -9,11 +9,6 @@ let peer;
 
 class Room extends React.Component {
 
-    state = {
-        connected: 0,
-        users: [],
-    }
-
     componentDidMount() {
         const { roomId } = this.props.match.params;
         peer = new Peer('', {
@@ -87,13 +82,10 @@ class Room extends React.Component {
     }
 
     render() {
-        const { connected } = this.state;
         this.handleNewUserJoin();
 
         return (
             <>
-                
-
                 <div className='main'>
                     <div className='main_left'>
                         <div className='main_videos'>
@@ -147,8 +139,7 @@ class Room extends React.Component {
                         </div>
                     </div>
                 </div>
-                <p>There are {connected} number of peers connected</p>
-                <Link to='/'>Back to Home</Link>
+                
             </>
         )
     }
