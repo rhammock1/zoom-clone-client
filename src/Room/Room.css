@@ -28,3 +28,16 @@ video {
     justify-content: center;
     align-items: center;
 }
+.main_controls {
+    display: flex;
+    background-color: #1c1e20;
+    color: #D2D2D2;
+    padding: 5px;
+}
+.main_controls_button {
+    display: flex;
+    flex-direction: column;
+}
+.main_controls_block {
+    display: flex;
+}

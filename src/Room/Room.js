@@ -102,7 +102,16 @@ class Room extends React.Component {
                             </div>
                         </div>
                         <div className='main_controls'>
-
+                            <div className='main_controls_block'>
+                                <div className='main_controls_button'>
+                                    <i class="fas fa-microphone"></i>
+                                    <span>Mute</span>                                    
+                                </div>
+                                <div className='main_controls_button'>
+                                    <i class="fas fa-video"></i>
+                                    <span>Stop Video</span>                                    
+                                </div>
+                            </div>
                         </div>
 
                     </div>
