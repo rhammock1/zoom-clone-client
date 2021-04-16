@@ -53,7 +53,7 @@ class Room extends React.Component {
     }
 
     handleAddVideoStream = (video, stream) => {
-        const videoFlex = document.getElementById('video-flex');
+        const videoFlex = document.getElementById('video_flex');
         video.srcObject = stream;
         video.addEventListener('loadedmetadata', () => {
             video.play();
@@ -92,8 +92,26 @@ class Room extends React.Component {
 
         return (
             <>
-                <div id="video-flex">
-                    
+                
+
+                <div className='main'>
+                    <div className='main_left'>
+                        <div className='main_videos'>
+                            <div id="video_flex">
+                        
+                            </div>
+                        </div>
+                        <div className='main_controls'>
+
+                        </div>
+
+                    </div>
+                    <div className='main_right'>
+                        <div className='main_header'>
+                            <h3>Chat</h3>
+                        </div>
+
+                    </div>
                 </div>
                 <p>There are {connected} number of peers connected</p>
                 <Link to='/'>Back to Home</Link>
