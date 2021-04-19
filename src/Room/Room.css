@@ -1,7 +1,7 @@
 #video_flex {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 95%;
 }
 video {
     width: 50%;
@@ -13,13 +13,13 @@ video {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    max-width: 100vw;
+    width: 100%;
 }
 .main_left {
     flex: 0.6;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    /* width: 100%; */
 }
 .main_right {
     flex: 0.4;
@@ -27,7 +27,7 @@ video {
     flex-direction: column;
     background-color: #242324;
     border-top: 1px solid #3d3d42;
-    width: 100%;
+    /* width: 100%; */
 }
 .main_header {
     color: #f5f5f5;
@@ -61,7 +61,7 @@ video {
     background-color: #1c1e20;
     color: #D2D2D2;
     
-    width: 100%;
+    /* width: 100%; */
 }
 .main_controls_button {
     display: flex;
@@ -90,4 +90,47 @@ video {
 a {
     text-decoration: none;
     width: min-content;
+}
+
+@media all and (min-width: 375px) {
+    .main_controls {
+        padding: 5px;
+    }
+    a {
+        width: max-content;
+    }
+}
+@media all and (min-width: 550px) {
+    .main_controls_button i {
+        font-size: 24px;
+    }
+    .main_controls_block {
+        font-size: 16px;
+    }
+}
+@media all and (min-width: 750px) {
+    .main_controls_button {
+        padding: 8px 10px;
+        min-width: 80px;
+    }
+
+    video {
+        width: 300px;
+        height: 200px;
+    }
+    
+}
+@media all and (min-width: 850px) {
+    .main {
+        flex-direction: row;
+    }
+    .main_left {
+        flex: 0.7;
+    }
+    .main_right {
+        flex: 0.3;
+        border-top: none;
+        border-left: 1px solid #3d3d42;
+    }
+    
 }
