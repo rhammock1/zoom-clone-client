@@ -119,6 +119,7 @@ class Room extends React.Component {
 
     setUserName = (event) => {
         event.preventDefault();
+        // I dont think this part actually works, FIX IT
         peer.id = event.target.username.value;
     }
 
@@ -127,6 +128,7 @@ class Room extends React.Component {
         const { messages } = this.state;
         const { username, setUserName } = this.context;
 
+        // TODO fix so that it renders video after submitting username
         if (username === '') {
             return (
                 <form onSubmit={setUserName} >
