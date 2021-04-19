@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import uuid from 'uuid';
+import UserContext from '../UserContext';
 
 class Home extends React.Component {
 
@@ -9,6 +10,9 @@ class Home extends React.Component {
         hasRoom: null,
         error: null,
     }
+
+    static contextType = UserContext;
+
     handleJoinRoom = async (event) => {
         event.preventDefault();
         const { roomId } = event.target;
@@ -55,6 +59,7 @@ class Home extends React.Component {
 
     render() {
         const { join, hasRoom } = this.state;
+        const { setUserName, startUserName, username, newUser } = this.context;
 
         return (
             <div className='button-container'>
@@ -71,9 +76,24 @@ class Home extends React.Component {
                     </>
                 )}
                 {(hasRoom === false) ? <p>Sorry that Room Id is not valid</p> : null}
-              <Link to={`/${uuid()}`}>
-                  <button type='button'>Start a room</button>
-                  </Link>
+                {!newUser 
+                    ? <button onClick={startUserName} type='button'>Set username before starting room</button>
+                    : (
+                        <form onSubmit={setUserName} >
+                            <label htmlFor='username'>What username would you like to use?</label>
+                            <input type='text' name='username' id='username' />
+                            <input type='submit' value='Confirm username'/>
+                        </form>
+                    )}
+                {username !== '' 
+                    ? <>
+                    <h2>Welcome {username}</h2>
+                    <Link to={`/${uuid()}`}>
+                        <button type='button'>Start room</button>
+                    </Link>
+                    </>
+                    : null}
+                
             </div>
           )
     }
