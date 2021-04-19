@@ -91,7 +91,10 @@ a {
     text-decoration: none;
     width: min-content;
 }
-
+.messages {
+    color: white;
+    list-style: none;
+}
 @media all and (min-width: 375px) {
     .main_controls {
         padding: 5px;
