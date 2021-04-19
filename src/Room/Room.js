@@ -94,6 +94,7 @@ class Room extends React.Component {
         const { message } = this.state;
         if (event.which === 13 && message.length !== 0) {
             console.log(message)
+            socket.emit('message', message);
             event.target.value = '';
         }
     }

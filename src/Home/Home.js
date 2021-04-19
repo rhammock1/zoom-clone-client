@@ -23,7 +23,7 @@ class Home extends React.Component {
     }
 
     handleRoomIdCheck = async (id) => {
-        await fetch('http://localhost:8080/rooms', {
+        await fetch('https://floating-dawn-41188.herokuapp.com/rooms', {
             headers: {
                 room_id: id,
             }
