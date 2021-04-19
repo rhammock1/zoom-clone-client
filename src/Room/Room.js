@@ -11,8 +11,9 @@ class Room extends React.Component {
 
     state = {
         message: '',
+        messages: [],
     }
-
+    
     componentDidMount() {
         const { roomId } = this.props.match.params;
         peer = new Peer('', {
@@ -38,6 +39,7 @@ class Room extends React.Component {
             console.error(error);
         });
         
+        setInterval(this.handleReceiveMessage(), 1000);
     }
 
     handleAnswerCall = (stream) => {
@@ -83,6 +85,15 @@ class Room extends React.Component {
             });
             
         })
+        
+    }
+
+    handleReceiveMessage = () => {
+        socket.on('createMessage', (message) => {
+            const { messages } = this.state;
+            messages.push(message);
+            this.setState({ messages });
+        })
     }
 
     handleMessage = (event) => {
@@ -93,14 +104,17 @@ class Room extends React.Component {
     handleSendMessage = (event) => {
         const { message } = this.state;
         if (event.which === 13 && message.length !== 0) {
-            console.log(message)
-            socket.emit('message', message);
+            
+            socket.emit('message', { message: message, userId: peer.id })
             event.target.value = '';
+            
+            
         }
     }
 
     render() {
         this.handleNewUserJoin();
+        const { messages } = this.state;
 
         return (
             <>
@@ -149,7 +163,11 @@ class Room extends React.Component {
                         </div>
                         <div className='main_chat_window'>
                             <ul className='messages'>
-
+                                {messages.map((msg, index) => {
+                                    return (
+                                    <li key={index} className='message'><b>{msg.userId}</b><br />{msg.message}</li>
+                                    )
+                                })}
                             </ul>
                         </div>
                         <div className='main_message_container'>
