@@ -17,6 +17,8 @@ class Room extends React.Component {
 
     static contextType = UserContext;
 
+    messageContainer = React.createRef();
+
     componentDidMount() {
         const { roomId } = this.props.match.params;
         const { username } = this.context;
@@ -43,8 +45,17 @@ class Room extends React.Component {
         }).catch((error) => {
             console.error(error);
         });
-        
+        this.scrollToBottom();
         setInterval(this.handleReceiveMessage(), 1000);
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+        const scroll = this.messageContainer.current.scrollHeight - this.messageContainer.current.clientHeight;
+        this.messageContainer.current.scrollTo(0, scroll);
     }
 
     handleAnswerCall = (stream) => {
@@ -92,12 +103,19 @@ class Room extends React.Component {
         })
         
     }
+    
+    // scrollToBottom = () => {
+    //     const chatDiv = document.querySelector('.main_chat_window');
+    //     console.log(chatDiv);
+    //     chatDiv.scrollTop(chatDiv.prop('scrollHeight'));
+    // }
 
     handleReceiveMessage = () => {
         socket.on('createMessage', (message) => {
             const { messages } = this.state;
             messages.push(message);
             this.setState({ messages });
+            // this.scrollToBottom();
         })
     }
 
@@ -183,7 +201,7 @@ class Room extends React.Component {
                             <div className='main_header'>
                                 <h3>Chat</h3>
                             </div>
-                            <div className='main_chat_window'>
+                            <div ref={this.messageContainer} className='main_chat_window'>
                                 <ul className='messages'>
                                     {messages.map((msg, index) => {
                                         return (
