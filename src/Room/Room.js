@@ -6,13 +6,14 @@ import Peer from 'peerjs';
 import UserContext from '../UserContext';
 const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : 'https://floating-dawn-41188.herokuapp.com/'; // May have to change endpoint that io is listening on
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
-let peer;
+let peer, myStream;
 
 class Room extends React.Component {
 
     state = {
         message: '',
         messages: [],
+        muted: false,
     }
 
     static contextType = UserContext;
@@ -39,6 +40,7 @@ class Room extends React.Component {
             video: true,
             audio: true,
         }).then((stream) => {
+            myStream = stream;
             this.handleAddVideoStream(myVideo, stream);
             this.handleAnswerCall(stream);
             
@@ -103,12 +105,17 @@ class Room extends React.Component {
         })
         
     }
-    
-    // scrollToBottom = () => {
-    //     const chatDiv = document.querySelector('.main_chat_window');
-    //     console.log(chatDiv);
-    //     chatDiv.scrollTop(chatDiv.prop('scrollHeight'));
-    // }
+
+    handleMuteUnmute = () => {
+        const enabled = myStream.getAudioTracks()[0].enabled;
+        if (enabled) {
+            myStream.getAudioTracks()[0].enabled = false;
+            this.setState({ muted: true })
+        } else {
+            myStream.getAudioTracks()[0].enabled = true;
+            this.setState({ muted: false });
+        }
+    }
 
     handleReceiveMessage = () => {
         socket.on('createMessage', (message) => {
@@ -143,7 +150,7 @@ class Room extends React.Component {
 
     render() {
         this.handleNewUserJoin();
-        const { messages } = this.state;
+        const { messages, muted } = this.state;
         const { username, setUserName } = this.context;
 
         // TODO fix so that it renders video after submitting username
@@ -167,9 +174,13 @@ class Room extends React.Component {
                             </div>
                             <div className='main_controls'>
                                 <div className='main_controls_block'>
-                                    <div className='main_controls_button'>
-                                        <i className="fas fa-microphone"></i>
-                                        <span>Mute</span>                                    
+                                    <div onClick={this.handleMuteUnmute}className='main_controls_button'>
+                                        {(!muted)
+                                            ? (<><i className="fas fa-microphone"></i>
+                                            <span>Mute</span></> )
+                                            : (<><i className="fas fa-microphone-slash"></i>
+                                            <span>Unmute</span>   </>)
+                                        }                                 
                                     </div>
                                     <div className='main_controls_button'>
                                         <i className="fas fa-video"></i>
