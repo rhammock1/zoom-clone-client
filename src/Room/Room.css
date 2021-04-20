@@ -9,6 +9,9 @@ video {
     object-fit: cover;
     padding: 5px;
 }
+.unmute {
+    color: #cc3b33;
+}
 .main {
     height: 100vh;
     display: flex;

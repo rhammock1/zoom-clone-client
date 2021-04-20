@@ -178,7 +178,7 @@ class Room extends React.Component {
                                         {(!muted)
                                             ? (<><i className="fas fa-microphone"></i>
                                             <span>Mute</span></> )
-                                            : (<><i className="fas fa-microphone-slash"></i>
+                                            : (<><i className="unmute fas fa-microphone-slash"></i>
                                             <span>Unmute</span>   </>)
                                         }                                 
                                     </div>
