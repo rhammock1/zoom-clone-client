@@ -9,7 +9,7 @@ video {
     object-fit: cover;
     padding: 5px;
 }
-.unmute {
+.unmute, .start {
     color: #cc3b33;
 }
 .main {

@@ -7,6 +7,7 @@ import UserContext from '../UserContext';
 const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : 'https://floating-dawn-41188.herokuapp.com/'; // May have to change endpoint that io is listening on
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 let peer, myStream;
+const myVideo = document.createElement('video');
 
 class Room extends React.Component {
 
@@ -14,6 +15,7 @@ class Room extends React.Component {
         message: '',
         messages: [],
         muted: false,
+        hideVideo: false,
     }
 
     static contextType = UserContext;
@@ -35,7 +37,7 @@ class Room extends React.Component {
             // this.handleAnswerCall(myStream);
         })
 
-        const myVideo = document.createElement('video');
+        
         navigator.mediaDevices.getUserMedia({
             video: true,
             audio: true,
@@ -117,6 +119,17 @@ class Room extends React.Component {
         }
     }
 
+    handlePlayStopVideo = () => {
+        const enabled = myStream.getVideoTracks()[0].enabled;
+        if (enabled) {
+            myStream.getVideoTracks()[0].enabled = false;
+            this.setState({ hideVideo: true })
+        } else {
+            myStream.getVideoTracks()[0].enabled = true;
+            this.setState({ hideVideo: false });
+        }
+    }
+
     handleReceiveMessage = () => {
         socket.on('createMessage', (message) => {
             const { messages } = this.state;
@@ -137,8 +150,6 @@ class Room extends React.Component {
             
             socket.emit('message', { message: message, userId: peer.id })
             event.target.value = '';
-            
-            
         }
     }
 
@@ -150,7 +161,7 @@ class Room extends React.Component {
 
     render() {
         this.handleNewUserJoin();
-        const { messages, muted } = this.state;
+        const { messages, muted, hideVideo } = this.state;
         const { username, setUserName } = this.context;
 
         // TODO fix so that it renders video after submitting username
@@ -182,9 +193,13 @@ class Room extends React.Component {
                                             <span>Unmute</span>   </>)
                                         }                                 
                                     </div>
-                                    <div className='main_controls_button'>
-                                        <i className="fas fa-video"></i>
-                                        <span>Stop Video</span>                                    
+                                    <div onClick={this.handlePlayStopVideo} className='main_controls_button'>
+                                        {(!hideVideo)
+                                            ? (<><i className="fas fa-video"></i>
+                                            <span>Stop Video</span></>)
+                                            : (<><i className="start fas fa-video-slash"></i>
+                                            <span>Start Video</span></>)
+                                        }                                 
                                     </div>
                                 </div>
                                 <div className='main_controls_block'>
