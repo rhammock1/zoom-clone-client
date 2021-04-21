@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import uuid from 'uuid';
 import UserContext from '../UserContext';
+import './Home.css';
 
 class Home extends React.Component {
 
@@ -69,7 +70,7 @@ class Home extends React.Component {
                 <div className='button-container'>
                 
                     {(!join) 
-                        ? <button className='big_button' onClick={this.handleRoomId} type="button">Join a Meeting</button>
+                        ? <button className='big_button blue' onClick={this.handleRoomId} type="button">Join a Meeting</button>
                         : (
                             <>
                                 <form onSubmit={this.handleJoinRoom}>
@@ -82,11 +83,11 @@ class Home extends React.Component {
                         )}
                     {(hasRoom === false) ? <p>Sorry that Room Id is not valid</p> : null}
                     {(username !== '')
-                        ? <Link to={`/${uuid()}`}>
+                        ? <Link className='big_button' to={`/${uuid()}`}>
                             <button className='big_button' type='button'>Start room</button>
                         </Link>
                         : (!newUser) 
-                            ? <button onClick={startUserName} type='button'>Sign In</button>
+                            ? <button className='big_button' onClick={startUserName} type='button'>Sign In</button>
                             : (
                                 <form onSubmit={setUserName} >
                                     <label htmlFor='username'>What username would you like to use?</label>

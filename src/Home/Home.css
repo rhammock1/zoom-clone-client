@@ -1,0 +1,29 @@
+.button-container {
+    display: flex;
+    flex-direction: column;
+    height: 75px;
+    justify-content: space-between;
+    width: 60%;
+    margin:auto;
+}
+.big_button {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+}
+a.big_button {
+    width: 100%;
+    padding: 0;
+}
+.blue {
+    background-color: #0e71eb;
+    color: #ffffff;
+}
+h1 {
+    color: #2D8CFF;
+    font-size: 48px;
+    font-weight: 900;
+}
