@@ -1,22 +1,26 @@
 .button-container {
     display: flex;
     flex-direction: column;
-    height: 75px;
-    justify-content: space-between;
+    height: auto;
+    justify-content: space-evenly;
     width: 60%;
     margin:auto;
 }
-.big_button {
+.big_button, .submit_button {
     padding: 8px 10px;
     border-radius: 5px;
     border: none;
     font-weight: 600;
     width: 100%;
     cursor: pointer;
+    margin: 8px 0px;
 }
 a.big_button {
     width: 100%;
     padding: 0;
+}
+.big_button>form {
+    width: fit-content;
 }
 .blue {
     background-color: #0e71eb;
@@ -26,4 +30,32 @@ h1 {
     color: #2D8CFF;
     font-size: 48px;
     font-weight: 900;
+}
+#username, #roomId {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #0e71eb;
+    padding: 8px 10px;
+    box-sizing: border-box;
+}
+#username::placeholder, #roomId::placeholder {
+    text-align: center;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px 5px;
+}
+
+@media all and (min-width: 550px) {
+    .button-container {
+        width: 50%;
+    }
+}
+@media all and (min-width: 750px) {
+    .button-container {
+        width: 40%;
+    }
 }

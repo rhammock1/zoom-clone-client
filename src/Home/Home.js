@@ -17,7 +17,9 @@ class Home extends React.Component {
     handleJoinRoom = async (event) => {
         event.preventDefault();
         const { roomId } = event.target;
-
+        if (roomId.value === '') {
+            return;
+        }
         await this.handleRoomIdCheck(roomId.value)
         
         const { hasRoom } = this.state;
@@ -74,9 +76,8 @@ class Home extends React.Component {
                         : (
                             <>
                                 <form onSubmit={this.handleJoinRoom}>
-                                    <label htmlFor='roomId'>Room ID: </label>
-                                    <input id='roomId' name='roomId' type='text' />
-                                    <button type='submit'>Submit</button>
+                                    <input placeholder='Room ID' id='roomId' name='roomId' type='text' />
+                                    <button className='submit_button' type='submit'>Submit</button>
                                 </form>
                                 
                             </>
@@ -90,9 +91,8 @@ class Home extends React.Component {
                             ? <button className='big_button' onClick={startUserName} type='button'>Sign In</button>
                             : (
                                 <form onSubmit={setUserName} >
-                                    <label htmlFor='username'>What username would you like to use?</label>
-                                    <input type='text' name='username' id='username' />
-                                    <input type='submit' value='Confirm username'/>
+                                    <input placeholder='Please Choose a Username' type='text' name='username' id='username' />
+                                    <button className='submit_button' type='submit'>Confirm Username</button>
                                 </form>
                         )}
                 </div>
