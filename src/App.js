@@ -36,7 +36,7 @@ class App extends React.Component {
 
     return (
       <UserContext.Provider value={value}>
-        <h1>Hello Zoom Clone</h1>
+        
         <Route exact path='/' component={Home} />
         <Route path='/:roomId' component={Room} />
       </UserContext.Provider>
