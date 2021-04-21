@@ -22,6 +22,8 @@ class Home extends React.Component {
         const { hasRoom } = this.state;
         if(hasRoom) {
             this.props.history.push(`/${roomId.value}`);
+        } else {
+            event.target.roomId.value = '';
         }
         
     }
@@ -54,7 +56,6 @@ class Home extends React.Component {
 
     handleRoomId = () => {
         // add text input to render so user can input id of room to join
-        console.log("Time to join a new room boss")
         this.setState({ join: true });
     }
 
@@ -64,40 +65,35 @@ class Home extends React.Component {
 
         return (
             <>
-                <h1>Hello Zoom Clone</h1>
+                <h1>Zoom Clone</h1>
                 <div className='button-container'>
                 
-                    {(hasRoom === false) ? <p>Sorry that Room Id is not valid</p> : null}
-                    {!newUser 
-                        ? <button onClick={startUserName} type='button'>Set username</button>
+                    {(!join) 
+                        ? <button className='big_button' onClick={this.handleRoomId} type="button">Join a Meeting</button>
                         : (
-                            <form onSubmit={setUserName} >
-                                <label htmlFor='username'>What username would you like to use?</label>
-                                <input type='text' name='username' id='username' />
-                                <input type='submit' value='Confirm username'/>
-                            </form>
+                            <>
+                                <form onSubmit={this.handleJoinRoom}>
+                                    <label htmlFor='roomId'>Room ID: </label>
+                                    <input id='roomId' name='roomId' type='text' />
+                                    <button type='submit'>Submit</button>
+                                </form>
+                                
+                            </>
                         )}
-                    {username !== '' 
-                        ? <>
-                        <h2>Welcome {username}</h2>
-                        {(!join) 
-                            ? <button onClick={this.handleRoomId} type="button">Join a room</button>
-                            : (
-                                <>
-                                    <form onSubmit={this.handleJoinRoom}>
-                                        <label htmlFor='roomId'>Room ID: </label>
-                                        <input id='roomId' name='roomId' type='text' />
-                                        <button type='submit'>Submit</button>
-                                    </form>
-                                    
-                                </>
-                            )}
-                        <Link to={`/${uuid()}`}>
-                            <button type='button'>Start room</button>
+                    {(hasRoom === false) ? <p>Sorry that Room Id is not valid</p> : null}
+                    {(username !== '')
+                        ? <Link to={`/${uuid()}`}>
+                            <button className='big_button' type='button'>Start room</button>
                         </Link>
-                        </>
-                        : null}
-                    
+                        : (!newUser) 
+                            ? <button onClick={startUserName} type='button'>Sign In</button>
+                            : (
+                                <form onSubmit={setUserName} >
+                                    <label htmlFor='username'>What username would you like to use?</label>
+                                    <input type='text' name='username' id='username' />
+                                    <input type='submit' value='Confirm username'/>
+                                </form>
+                        )}
                 </div>
             </>
           )
