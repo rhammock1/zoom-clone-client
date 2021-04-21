@@ -32,7 +32,7 @@ class Room extends React.Component {
             port: process.env.REACT_APP_PEER_PORT,
         })
         peer.on('open', (id) => {
-            console.log('peer connected');
+            
             socket.emit('join-room', roomId, id);
             // this.handleAnswerCall(myStream);
         })
@@ -77,7 +77,7 @@ class Room extends React.Component {
             call.answer(stream);
             const video = document.createElement('video');
             call.on('stream', (userVideoStream) => {
-                console.log('Inside Answer Call on stream')
+                
                 this.handleAddVideoStream(video, userVideoStream);
             })
         })
@@ -96,7 +96,6 @@ class Room extends React.Component {
     handleNewUserJoin = () => {
 
         socket.on('user-connected', (userId) => {
-            console.log('a new user has joined');
 
             navigator.mediaDevices.getUserMedia({
                 video: true,
@@ -106,7 +105,7 @@ class Room extends React.Component {
                 const call = peer.call(userId, stream);
                 const video = document.createElement('video');
                 call.on('stream', (userVideoStream) => {
-                    console.log('line 88 in call on stream',userVideoStream);
+                    
                     this.handleAddVideoStream(video, userVideoStream);
                 })
 
@@ -151,7 +150,7 @@ class Room extends React.Component {
 
     handleMessage = (event) => {
         this.setState({ message: event.target.value })
-        // console.log(event.target.value)
+ 
     }
 
     handleSendMessage = (event) => {
