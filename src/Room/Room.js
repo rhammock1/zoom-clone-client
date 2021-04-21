@@ -175,15 +175,15 @@ class Room extends React.Component {
         const { username, setUserName } = this.context;
 
         // TODO fix so that it renders video after submitting username
-        if (username === '') {
-            return (
-                <form key={username} onSubmit={setUserName} >
-                    <label htmlFor='username'>What username would you like to use?</label>
-                    <input type='text' name='username' id='username' />
-                    <input type='submit' value='Confirm username'/>
-                </form>
-            )
-        } else {
+        // if (username === '') {
+        //     return (
+        //         <form key={username} onSubmit={setUserName} >
+        //             <label htmlFor='username'>What username would you like to use?</label>
+        //             <input type='text' name='username' id='username' />
+        //             <input type='submit' value='Confirm username'/>
+        //         </form>
+        //     )
+        // } else {
             return (
                 <>
                     <div className='main'>
@@ -254,7 +254,7 @@ class Room extends React.Component {
                     
                 </>
             )
-        }
+        // }
         
     }
 }
