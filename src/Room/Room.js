@@ -7,7 +7,7 @@ import UserContext from '../UserContext';
 const ENDPOINT = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : 'https://floating-dawn-41188.herokuapp.com/'; // May have to change endpoint that io is listening on
 const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 let peer, myStream;
-const myVideo = document.createElement('video');
+
 
 class Room extends React.Component {
 
@@ -43,18 +43,28 @@ class Room extends React.Component {
             audio: true,
         }).then((stream) => {
             myStream = stream;
-            this.handleAddVideoStream(myVideo, stream);
+            const myVideo = document.createElement('video');
+            if (username !== '') {
+                this.handleAddVideoStream(myVideo, stream);
+            }
             this.handleAnswerCall(stream);
             
         }).catch((error) => {
             console.error(error);
         });
-        this.scrollToBottom();
+        if (username !== ''){
+            this.scrollToBottom();
+        } 
+        
+        
         setInterval(this.handleReceiveMessage(), 1000);
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        const { username } = this.context;
+        if (username !== '') {
+            this.scrollToBottom();
+        }
     }
 
     scrollToBottom() {
@@ -165,21 +175,21 @@ class Room extends React.Component {
         const { username, setUserName } = this.context;
 
         // TODO fix so that it renders video after submitting username
-        // if (username === '') {
-        //     return (
-        //         <form onSubmit={setUserName} >
-        //             <label htmlFor='username'>What username would you like to use?</label>
-        //             <input type='text' name='username' id='username' />
-        //             <input type='submit' value='Confirm username'/>
-        //         </form>
-        //     )
-        // } else {
+        if (username === '') {
+            return (
+                <form key={username} onSubmit={setUserName} >
+                    <label htmlFor='username'>What username would you like to use?</label>
+                    <input type='text' name='username' id='username' />
+                    <input type='submit' value='Confirm username'/>
+                </form>
+            )
+        } else {
             return (
                 <>
                     <div className='main'>
                         <div className='main_left'>
                             <div className='main_videos'>
-                                <div id="video_flex">
+                                <div key={username} id="video_flex">
                             
                                 </div>
                             </div>
@@ -244,7 +254,7 @@ class Room extends React.Component {
                     
                 </>
             )
-        // }
+        }
         
     }
 }
