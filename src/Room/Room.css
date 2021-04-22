@@ -19,6 +19,14 @@ video {
 .unmute, .start {
     color: #cc3b33;
 }
+.main_chat_window::-webkit-scrollbar {
+    background: transparent;
+    border-radius: 5px;
+}
+.main_chat_window::-webkit-scrollbar-thumb {
+    background: #3d3d42;
+    border-radius: 5px;
+}
 .main {
     height: 100vh;
     display: flex;
